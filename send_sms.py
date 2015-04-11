@@ -1,12 +1,14 @@
 
 from twilio.rest import TwilioRestClient
  
-account_sid = "AC8db72cd36749487872cfd5fcc0725c37"
-auth_token  = "0f46ec208b28c4d06a9a1c7dae4cb080"
+import os
+
+account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+auth_token  = os.environ["TWILIO_AUTH_TOKEN"]
 client = TwilioRestClient(account_sid, auth_token)
  
 message = client.messages.create(body="Apartment door has been opened",
-    to="+16466732481",    # My phone number
-    from_="+12018856036") # My Twilio number
+    to=os.environ["PHONE_TO"],    # My phone number
+    from_=os.environ["PHONE_FROM"]) # My Twilio number
 print message.sid
 
